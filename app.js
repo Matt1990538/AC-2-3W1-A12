@@ -5,9 +5,11 @@ const port = 3000
 const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
 
+const Restaurant = require('./models/restaurant')
+
 // database connection
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/Restaurant-List', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/Restaurant_List', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
@@ -25,12 +27,12 @@ app.set('view engine', 'handlebars')
 // static files location
 app.use(express.static('public'))
 
-
-
-
 // routing
-app.get('/', (req, res ) => {
-  res.render('index', { restaurants:restaurantList.results })
+app.get('/', (req, res) => {
+  Restaurant.find()
+    .lean() //mongoose to array
+    .then(restaurants => res.render('index', {restaurants}))
+    .catch(error => console.log(error))
 })
 
 app.get('/search', (req, res) => {
