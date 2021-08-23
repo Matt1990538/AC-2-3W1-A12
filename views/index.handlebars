@@ -23,7 +23,6 @@
       <div class="card-columns">
         <div class="row" id="data-panel"></div>
           {{#each restaurants}}
-          <a href="/restaurant/{{this.id}}" class="text-secondary">
             <div class="card mb-3">
               <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
               <div class="card-body p-3">
@@ -37,10 +36,13 @@
                   {{this.rating}}
                   <i class="fas fa-star fa-xs"></i>
                 </span>
-          
+              </div>            
+              <div class="card-footer d-flex justify-content-end">
+                <a class="btn btn-primary" href="/restaurant/{{this.id}}" role="button">Details</a>
+                <button type="button" class="btn btn-secondary mx-2">Edit</button>
+                <button type="button" class="btn btn-danger">Delete</button>
               </div>
             </div>
-          </a>
           {{/each}}
         </div>
       </div>

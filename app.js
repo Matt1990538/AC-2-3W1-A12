@@ -82,8 +82,11 @@ app.post('/restaurant', (req, res) => {
 
 
 app.get('/restaurant/:restaurant_id', (req, res) => {
-  const pickedRestaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurants: pickedRestaurant })
+  const index = req.params.restaurant_id
+  Restaurant.findOne({'id': index})
+    .lean()
+    .then(pickedRestaurant => res.render('show', { restaurants:pickedRestaurant }))
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () => {
