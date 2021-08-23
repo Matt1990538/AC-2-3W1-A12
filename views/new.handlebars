@@ -1,0 +1,34 @@
+<div class="container d-flex mt-3"></div>
+  <div class="col-6 mx-auto">
+    <form action="/restaurant" method="POST" novalidate>
+      <div class="form-group">
+        <label for="IDInput">ID</label>
+        <input type="text" class="form-control" name="id" id="IDInput" aria-describedby="IDInput" value={{dbLength}} disabled>
+        <label for="nameInput">Name</label>
+        <input type="text" class="form-control" name="name" id="nameInput" aria-describedby="nameInput" placeholder="Please type name of restaurant">
+        <label for="ENnameInput">English Name</label>
+        <input type="text" class="form-control" name="name_en" id="ENnameInput" aria-describedby="ENnameInput" placeholder="Please type English name of restaurant">
+        <label for="categoryInput">Category</label>
+        <input type="text" class="form-control" name="category" id="categoryInput" aria-describedby="categoryInput" placeholder="Please type category of restaurant">
+        <label for="imageInput">Image</label>
+        <input type="url" class="form-control" name="image" id="imageInput" aria-describedby="imageInput" placeholder="Please paste url of image">
+        <label for="locationInput">Location</label>
+        <input type="text" class="form-control" name="location" id="locationInput" aria-describedby="locationInput" placeholder="Please type address of restaurant">
+        <label for="phoneInput">Phone</label>
+        <input type="tel" class="form-control" name="phone" id="phoneInput" aria-describedby="phoneInput" placeholder="Please type phone number of restaurant">
+        <label for="googleMapsInput">Google Maps</label>
+        <input type="url" class="form-control" name="google_map" id="googleMapsInput" aria-describedby="googleMapsInput" placeholder="Please paste url of restaurant location of Google maps">
+        <label for="ratingInput">Rating</label>
+        <input type="number" class="form-control" name="rating" id="ratingInput" aria-describedby="ratingInput" placeholder="Please rate this restaurant" min="0.0" max="5.0" step="0.1">
+        <label for="desctiptionInput">Desctiption</label>
+        <textarea class="form-control" name="description" id="desctiptionInput" aria-describedby="desctiptionInput" rows="3" placeholder="Please describe tihs restaurant"></textarea>
+        <input type="submit" name="submitRestaurant" id="submitRestaurant" class="form-control mt-5 btn btn-primary">
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+document.querySelector('#submitRestaurant').addEventListener('click', function(){
+    document.querySelector('#IDInput').disabled = false
+  })
+</script>

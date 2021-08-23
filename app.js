@@ -24,8 +24,10 @@ db.once('open', () => {
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// static files location
+// static files location & body-parser
 app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
+
 
 // routing
 app.get('/', (req, res) => {
@@ -52,6 +54,31 @@ app.get('/search', (req, res) => {
   
 })
 
+app.get('/restaurant/new', (req, res) => {
+  Restaurant.countDocuments({})
+    .lean()
+    .then(function(dbLength) {
+      dbLength += 1
+      res.render('new', {dbLength})
+    })
+})
+
+app.post('/restaurant', (req, res) => {
+  return Restaurant.create({ 
+    id: req.body.id, 
+    name: req.body.name, 
+    name_en: req.body.name_en, 
+    category: req.body.category, 
+    image: req.body.image, 
+    location: req.body.location, 
+    phone: req.body.phone, 
+    google_map: req.body.google_map, 
+    rating: req.body.rating, 
+    description: req.body.description
+  })
+  .then(() => res.redirect('/'))
+  .catch(error => console.log(error))
+})
 
 
 app.get('/restaurant/:restaurant_id', (req, res) => {
