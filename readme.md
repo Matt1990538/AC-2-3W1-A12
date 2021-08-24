@@ -10,6 +10,10 @@ Present detailed information for restaurant when click on picture of it.
 
 Can be searched restaurants with keywords by name or categories, via search bar on top of restaurant list.
 
+Can be created a new restaurant with **New Restaurant** buttom on the upper right hand corner in index page.
+
+Can be amended, deleted for existing restaurant with detail page, in the bottom of each restaurant card.
+
 ## Prerequisites
 
 Install
@@ -18,8 +22,9 @@ Install
 - [express]
 - [express-handlebars]
 - [nodemon]
+- [moogoose]
 
-which includes [Node Package Manager][npm]
+which includes in [Node Package Manager][npm]
 
 ## Installing
 
@@ -33,3 +38,4 @@ which includes [Node Package Manager][npm]
 [express]: https://www.npmjs.com/package/express
 [express-handlebars]: https://www.npmjs.com/package/express-handlebars
 [nodemon]: https://www.npmjs.com/package/nodemon
+[moogoose]: https://mongoosejs.com/
