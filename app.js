@@ -39,19 +39,13 @@ app.get('/', (req, res) => {
 // search function, need to be updated with DB
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
+  const keywordLowerCase = keyword.toLowerCase()
 
-  const searchedCategory = restaurantList.results.filter(restaurant => {
-    return restaurant.category.toLowerCase().includes(keyword.toLowerCase())
-  })
+  Restaurant.find({$or:[{name: { "$regex": keywordLowerCase, "$options": "i" }}, {name_en: { "$regex": keywordLowerCase, "$options": "i" }}, {category: { "$regex": keywordLowerCase, "$options": "i" }}]})
+  .lean()
+  .then(searchedRestaurant => res.render('index', { restaurants:searchedRestaurant, keyword: keyword }))
+  .catch(error => console.log(error))
 
-  const searchedRestaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
-  })
-
-  const searchResult = searchedCategory.length === 0 ? searchedRestaurants : searchedCategory
-
-  res.render('index', { restaurants:searchResult, keyword: keyword })
-  
 })
 // create a new restaurant review, automatically giving a sequential ID
 app.get('/restaurant/new', (req, res) => {
@@ -105,9 +99,18 @@ app.post('/restaurant/:restaurant_id/edit', (req, res) => {
       [updatedInfo.name, updatedInfo.name_en, updatedInfo.category, updatedInfo.image, updatedInfo.location, updatedInfo.phone, updatedInfo.google_map, updatedInfo.rating, updatedInfo.description] = [req.body.name, req.body.name_en, req.body.category, req.body.image, req.body.location, req.body.phone, req.body.google_map, req.body.rating, req.body.description]
       return updatedInfo.save()
     })
-    .then(() => {res.redirect(`/restaurant/${index}`)})
+    .then(() => res.redirect(`/restaurant/${index}`))
     .catch(error => console.log(error))
 })
+
+// deleting a restaurant being picked by user
+app.post('/restaurant/:restaurant_id/delete', (req, res) => {
+  const index = req.params.restaurant_id
+  Restaurant.findOne({'id': index})
+    .then(pickedRestaurant => pickedRestaurant.remove())
+    .then(() => res.redirect(`/`))
+    .catch(error => console.log(error))
+}) 
 
 // listening to port
 app.listen(port, () => {

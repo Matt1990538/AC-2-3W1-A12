@@ -1,5 +1,8 @@
 <div class="container d-flex mt-3">
   <a class="btn btn-primary" href="/" role="button">Back</a>
+  <form action="/restaurant/{{ restaurants.id }}/delete" method="POST" style="display: inline;">
+    <button type="submit" class="btn btn-danger mx-2">Delete</button>
+  </form>
 </div>
 <div class="col-6 mx-auto">
   <form action="/restaurant/{{ restaurants.id }}/edit" method="POST" novalidate>
