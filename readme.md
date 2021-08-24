@@ -18,8 +18,9 @@ Install
 - [express]
 - [express-handlebars]
 - [nodemon]
+- [mongoose]
 
-which includes [Node Package Manager][npm]
+which includes in [Node Package Manager][npm]
 
 ## Installing
 
@@ -33,3 +34,4 @@ which includes [Node Package Manager][npm]
 [express]: https://www.npmjs.com/package/express
 [express-handlebars]: https://www.npmjs.com/package/express-handlebars
 [nodemon]: https://www.npmjs.com/package/nodemon
+[mongoose]: https://mongoosejs.com/
