@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
     .then(restaurants => res.render('index', {restaurants}))
     .catch(error => console.log(error))
 })
-
+// search function, need to be updated with DB
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
 
@@ -53,7 +53,7 @@ app.get('/search', (req, res) => {
   res.render('index', { restaurants:searchResult, keyword: keyword })
   
 })
-
+// create a new restaurant review, automatically giving a sequential ID
 app.get('/restaurant/new', (req, res) => {
   Restaurant.countDocuments({})
     .lean()
@@ -62,7 +62,7 @@ app.get('/restaurant/new', (req, res) => {
       res.render('new', {dbLength})
     })
 })
-
+// posting a new restaurant review to DB
 app.post('/restaurant', (req, res) => {
   return Restaurant.create({ 
     id: req.body.id, 
@@ -80,7 +80,7 @@ app.post('/restaurant', (req, res) => {
   .catch(error => console.log(error))
 })
 
-
+// showing details of restaurant
 app.get('/restaurant/:restaurant_id', (req, res) => {
   const index = req.params.restaurant_id
   Restaurant.findOne({'id': index})
@@ -89,6 +89,27 @@ app.get('/restaurant/:restaurant_id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// editing details of a restaurant being picked by user
+app.get('/restaurant/:restaurant_id/edit', (req, res) => {
+  const index = req.params.restaurant_id
+  Restaurant.findOne({'id': index})
+    .lean()
+    .then(pickedRestaurant => res.render('edit', { restaurants:pickedRestaurant }))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurant/:restaurant_id/edit', (req, res) => {
+  const index = req.params.restaurant_id
+  Restaurant.findOne({'id': index})
+    .then(updatedInfo => {
+      [updatedInfo.name, updatedInfo.name_en, updatedInfo.category, updatedInfo.image, updatedInfo.location, updatedInfo.phone, updatedInfo.google_map, updatedInfo.rating, updatedInfo.description] = [req.body.name, req.body.name_en, req.body.category, req.body.image, req.body.location, req.body.phone, req.body.google_map, req.body.rating, req.body.description]
+      return updatedInfo.save()
+    })
+    .then(() => {res.redirect(`/restaurant/${index}`)})
+    .catch(error => console.log(error))
+})
+
+// listening to port
 app.listen(port, () => {
   console.log(`Express is running on http://localhost:${port}`)
 })
