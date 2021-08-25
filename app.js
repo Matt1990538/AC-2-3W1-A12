@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 
 const exphbs = require('express-handlebars')
-const restaurantList = require('./restaurant.json')
+const methodOverride = require('method-override')
 
 const Restaurant = require('./models/restaurant')
 
@@ -24,9 +24,10 @@ db.once('open', () => {
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-// static files location & body-parser
+// static files location. Body-parser and RESTful method override for express
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 
 // routing
@@ -92,7 +93,7 @@ app.get('/restaurant/:restaurant_id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurant/:restaurant_id/edit', (req, res) => {
+app.put('/restaurant/:restaurant_id/edit', (req, res) => {
   const index = req.params.restaurant_id
   Restaurant.findOne({'id': index})
     .then(updatedInfo => {
@@ -104,7 +105,7 @@ app.post('/restaurant/:restaurant_id/edit', (req, res) => {
 })
 
 // deleting a restaurant being picked by user
-app.post('/restaurant/:restaurant_id/delete', (req, res) => {
+app.delete('/restaurant/:restaurant_id/', (req, res) => {
   const index = req.params.restaurant_id
   Restaurant.findOne({'id': index})
     .then(pickedRestaurant => pickedRestaurant.remove())

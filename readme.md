@@ -4,7 +4,7 @@
 
 ## Features
 
-Present my 8 favorite restaurants.
+Present my 8 favorite restaurants, follows RESTful API.
 
 Present detailed information for restaurant when click on picture of it.
 
@@ -19,6 +19,7 @@ Install
 - [express-handlebars]
 - [nodemon]
 - [mongoose]
+- [method-override]
 
 which includes in [Node Package Manager][npm]
 
@@ -35,3 +36,4 @@ which includes in [Node Package Manager][npm]
 [express-handlebars]: https://www.npmjs.com/package/express-handlebars
 [nodemon]: https://www.npmjs.com/package/nodemon
 [mongoose]: https://mongoosejs.com/
+[method-override]: https://www.npmjs.com/package/method-override
