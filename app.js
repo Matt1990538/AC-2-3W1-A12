@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 
 const exphbs = require('express-handlebars')
+const restaurantList = require('./restaurant.json')
 const methodOverride = require('method-override')
 
 const Restaurant = require('./models/restaurant')
@@ -18,6 +19,9 @@ db.on('error', () => {
 })
 db.once('open', () => {
   console.log('mongodb connected!')
+  for (let i = 0; i < 10; i++) {
+    Restaurant.create({ name: 'name-' + i })
+  }
 })
 
 // template engine
