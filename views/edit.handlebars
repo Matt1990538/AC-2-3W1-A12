@@ -1,6 +1,6 @@
 <div class="container d-flex mt-3">
   <a class="btn btn-primary" href="/" role="button">Back</a>
-  <form action="/restaurant/{{ restaurants.id }}?_method=DELETEdelete" method="POST" style="display: inline;">
+  <form action="/restaurant/{{ restaurants.id }}?_method=DELETE" method="POST" style="display: inline;">
     <button type="submit" class="btn btn-danger mx-2">Delete</button>
   </form>
 </div>
@@ -33,9 +33,9 @@
       <label for="ratingInput">Rating</label>
       <input type="number" class="form-control" name="rating" id="ratingInput" aria-describedby="ratingInput" value="{{restaurants.rating}}"
         placeholder="Please rate this restaurant" min="0.0" max="5.0" step="0.1">
-      <label for="desctiptionInput">Desctiption</label>
-      <textarea class="form-control" name="description" id="desctiptionInput" aria-describedby="desctiptionInput" rows="3" placeholder="Please describe tihs restaurant">{{restaurants.description}}</textarea>
-      <input type="submit" name="submitRestaurant" id="submitRestaurant" class="form-control mt-5 btn btn-primary">
+      <label for="descriptionInput">Description</label>
+      <textarea class="form-control" name="description" id="descriptionInput" aria-describedby="descriptionInput" rows="3" placeholder="Please describe this restaurant">{{restaurants.description}}</textarea>
+      <button type="submit" name="submitRestaurant" id="submitRestaurant" class="form-control mt-5 btn btn-primary">Submit your edit</button>
     </div>
   </form>
 </div>

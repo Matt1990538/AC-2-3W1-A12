@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
     rating: req.body.rating, 
     description: req.body.description
   })
-  .then(() => res.redirect('/'))
+  .then(() => res.redirect('../'))
   .catch(error => console.log(error))
 })
 
@@ -49,14 +49,14 @@ router.get('/:restaurant_id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-router.put('/:restaurant_id/edit', (req, res) => {
+router.put('/:restaurant_id', (req, res) => {
   const index = req.params.restaurant_id
   Restaurant.findOne({'id': index})
     .then(updatedInfo => {
       [updatedInfo.name, updatedInfo.name_en, updatedInfo.category, updatedInfo.image, updatedInfo.location, updatedInfo.phone, updatedInfo.google_map, updatedInfo.rating, updatedInfo.description] = [req.body.name, req.body.name_en, req.body.category, req.body.image, req.body.location, req.body.phone, req.body.google_map, req.body.rating, req.body.description]
       return updatedInfo.save()
     })
-    .then(() => res.redirect(`/${index}`))
+    .then(() => res.redirect(`/restaurant/${index}`))
     .catch(error => console.log(error))
 })
 

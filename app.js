@@ -22,9 +22,6 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-
-app.use(routes)
-
 // template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -34,6 +31,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
+app.use(routes)
 
 // listening to port
 app.listen(port, () => {
