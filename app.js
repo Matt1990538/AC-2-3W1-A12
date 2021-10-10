@@ -3,7 +3,7 @@ const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
 const methodOverride = require('method-override')
 
-const port = process.env.port || 3000
+const PORT = process.env.PORT || 3000
 
 const Restaurant = require('./models/restaurant')
 const routes = require('./routes')
@@ -24,6 +24,6 @@ app.use(methodOverride('_method'))
 app.use(routes)
 
 // listening to port
-app.listen(port, () => {
-  console.log(`Express is running on http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Express is running on http://localhost:${PORT}`)
 })
